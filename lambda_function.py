@@ -25,7 +25,7 @@ import time
 
 def lambda_handler(event, context):
     # TODO implement
-    print("Starting google.com")
+    print("start 一亩三分地签到!")
     chrome_options = Options()
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--no-sandbox')
@@ -54,19 +54,19 @@ def lambda_handler(event, context):
     print("password filled")
 
     password.submit()
-    print("submit filled")
+    print("submitted")
 
     time.sleep(5)
     browser.find_element_by_partial_link_text("签到领奖").click()
-    print("go to qiandao")
+    print("go to 签到")
 
     time.sleep(2)
     browser.find_element_by_xpath("//img[contains(@src,'source/plugin/dsu_paulsign/img/emot/kx.gif')]").click()
-    print("click kaixin qiandao")
+    print("click 开心")
 
     browser.find_element_by_id("todaysay").send_keys("我要签到领奖我要签到领奖！")
-    print("fill today mood")
+    print("fill 心情")
 
     browser.find_element_by_xpath("//button[contains(@onclick, 'qiandao')]").click()
-    print("click qiandao")
+    print("click 签到")
     return ""
