@@ -23,6 +23,21 @@ import time
 
 # driver = webdriver.Chrome(chrome_options=chrome_options)
 
+
+def get_element(browser, getfunc, message):
+    element = None
+    number = 0
+    while not element and number < 40:
+        try:
+            element = getfunc(browser)
+        except:
+            time.sleep(1)
+        number += 1
+    if not element:
+        raise ValueError("element not found: " + message)
+    return element
+
+
 def lambda_handler(event, context):
     # TODO implement
     print("start 一亩三分地签到!")
@@ -46,22 +61,22 @@ def lambda_handler(event, context):
 
     browser = webdriver.Chrome(chrome_options=chrome_options)
     browser.get('https://www.1point3acres.com/bbs')
-    browser.find_element_by_id("ls_username").send_keys(os.environ['USERNAME'])
+
+    get_element(browser, lambda b: b.find_element_by_id("ls_username"), "username").send_keys(os.environ['USERNAME'])
     print("username filled")
 
     password = browser.find_element_by_id("ls_password")
-    password.send_keys("os.environ['PASSWORD']")
+    password.send_keys(os.environ['PASSWORD'])
     print("password filled")
 
     password.submit()
     print("submitted")
 
-    time.sleep(5)
-    browser.find_element_by_partial_link_text("签到领奖").click()
+    get_element(browser, lambda b: b.find_element_by_xpath("//a[contains(@onclick,'dsu_paulsign')]"), "qiandao").click()
     print("go to 签到")
 
-    time.sleep(2)
-    browser.find_element_by_xpath("//img[contains(@src,'source/plugin/dsu_paulsign/img/emot/kx.gif')]").click()
+    get_element(browser, lambda b: b.find_element_by_xpath(
+        "//img[contains(@src,'source/plugin/dsu_paulsign/img/emot/kx.gif')]"), "kaixin").click()
     print("click 开心")
 
     browser.find_element_by_id("todaysay").send_keys("我要签到领奖我要签到领奖！")
