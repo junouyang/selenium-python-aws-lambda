@@ -84,4 +84,3 @@ def lambda_handler(event, context):
 
     browser.find_element_by_xpath("//button[contains(@onclick, 'qiandao')]").click()
     print("click 签到")
-    return ""
