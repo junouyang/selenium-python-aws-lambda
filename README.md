@@ -8,5 +8,5 @@
   * timeout: 5 min
   * trigger: cloud watch event, expression rate(1441 minutes) //1 day and 1 minute
 * Add envirionment variables
-  * USERNAME: your 1point3acres username
+  * USERNAME: your 1point3acres user name
   * PASSWORD: your 1point3acres password
